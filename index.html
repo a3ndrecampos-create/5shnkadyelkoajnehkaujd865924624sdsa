@@ -328,8 +328,8 @@ body::after {
 /* ─── ARENA ─── */
 #arenaContainer {
   position: relative;
-  width: min(98vw, 98vh, 800px);
-  height: min(98vw, 98vh, 800px);
+  width: min(98vw, 98vh, 500px);
+  height: min(98vw, 98vh, 500px);
   flex-shrink: 0;
 }
 
@@ -1248,8 +1248,8 @@ body::after {
 ══════════════════════════════════════ */
 const canvas = document.getElementById("gameCanvas");
 const ctx    = canvas.getContext("2d");
-canvas.width  = 800; 
-canvas.height = 800;
+canvas.width  = 500; 
+canvas.height = 500;
 
 const arenaBg = new Image();
 arenaBg.src   = "assets/espaco.png";
@@ -1295,9 +1295,9 @@ const MAX_BIGTEXTS   = 6;   // cap para textos grandes de eliminação/combo
 // ── ARENA CIRCULAR ──
 // A luta agora acontece só dentro deste círculo, centrado no canvas 1000x800.
 // Tudo que é movimento/spawn/colisão de borda usa essas 3 constantes.
-const ARENA_CX     = 400;
-const ARENA_CY     = 400;
-const ARENA_RADIUS = 340;
+const ARENA_CX     = 250;
+const ARENA_CY     = 250;
+const ARENA_RADIUS = 220;
 
 /* ══════════════════════════════════════
    VFX SYSTEM — estilo "anúncio mobile viciante"
@@ -2142,21 +2142,21 @@ const starsBg = (() => {
   off.height = 800;
   const c = off.getContext('2d');
   c.fillStyle = '#03040a';
-  c.fillRect(0,0,800,800);
+  c.fillRect(0,0,500,500);
   for (let i = 0; i < 200; i++) {
-    const x = Math.random()*800, y = Math.random()*800;
+    const x = Math.random()*500, y = Math.random()*500;
     const s = Math.random()*1.5+0.3;
     c.globalAlpha = Math.random()*0.6+0.2;
     c.fillStyle   = `hsl(${200+Math.random()*60},80%,90%)`;
     c.beginPath(); c.arc(x,y,s,0,Math.PI*2); c.fill();
   }
   c.globalAlpha = 1;
-  const ng = c.createRadialGradient(400,400,0,400,400,400);
+  const ng = c.createRadialGradient(250,250,0,250,250,250);
   ng.addColorStop(0,'rgba(50,0,80,0.3)');
   ng.addColorStop(0.5,'rgba(0,20,60,0.15)');
   ng.addColorStop(1,'transparent');
   c.fillStyle = ng;
-  c.fillRect(0,0,800,800);
+  c.fillRect(0,0,500,500);
   return off;
 })();
 
@@ -3025,12 +3025,12 @@ document.getElementById("configBtn").onclick = () => {
 // Grade pré-renderizada em offscreen canvas — evita redesenhar 25 linhas todo frame
 const gridCanvas = (() => {
   const off = document.createElement('canvas');
-  off.width = 800; off.height = 800;
+  off.width = 500; off.height = 500;
   const c = off.getContext('2d');
   c.strokeStyle = 'rgba(0,229,255,0.04)';
   c.lineWidth = 0.5;
-  for (let x = 0; x <= 800; x += 80) { c.beginPath(); c.moveTo(x,0); c.lineTo(x,800); c.stroke(); }
-  for (let y = 0; y <= 800; y += 80) { c.beginPath(); c.moveTo(0,y); c.lineTo(800,y); c.stroke(); }
+  for (let x = 0; x <= 500; x += 80) { c.beginPath(); c.moveTo(x,0); c.lineTo(x,800); c.stroke(); }
+  for (let y = 0; y <= 500; y += 80) { c.beginPath(); c.moveTo(0,y); c.lineTo(800,y); c.stroke(); }
   return off;
 })();
 
@@ -3056,12 +3056,12 @@ function loop(timestamp) {
     if (Math.abs(timeScale - timeScaleTarget) < 0.01) timeScale = timeScaleTarget;
 
     // Atualizado para 800x800
-    ctx.clearRect(0,0,800,800);
+    ctx.clearRect(0,0,500,500);
 
     if (arenaBg.complete && arenaBg.naturalWidth) {
-      ctx.drawImage(arenaBg, 0,0,800,800);
+      ctx.drawImage(arenaBg, 0,0,500,500);
     } else {
-      ctx.drawImage(starsBg, 0,0,800,800);
+      ctx.drawImage(starsBg, 0,0,500,500);
     }
 
     // Grade pré-renderizada (offscreen) — desenhada uma única vez
