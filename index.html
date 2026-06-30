@@ -3105,22 +3105,6 @@ setInterval(() => {
 renderEvents();
 connectTikFinity();
 requestAnimationFrame(loop);
-
-/* ── ESCALA: encaixa o centerCol (arena + vsPanel + tudo) em 500px ── */
-(function() {
-  const TARGET = 500;
-  const el = document.getElementById('centerCol');
-  function apply() {
-    el.style.transform = 'none';
-    const w = el.offsetWidth;
-    const scale = TARGET / w;
-    el.style.transform = 'scale(' + scale + ')';
-    el.style.transformOrigin = 'top center';
-    el.style.marginBottom = ((el.offsetHeight * scale) - el.offsetHeight) + 'px';
-  }
-  requestAnimationFrame(function() { setTimeout(apply, 100); });
-  window.addEventListener('resize', apply);
-})();
 </script>
 </body>
 </html>
